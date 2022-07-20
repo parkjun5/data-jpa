@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberJpaRepositoryTest {
 
     @Autowired MemberJpaRepository memberJpaRepository;
-    @Autowired MemberRepository memberRepository;
 
     @Test
     void testMember() throws Exception {
@@ -35,18 +34,4 @@ class MemberJpaRepositoryTest {
         assertThat(savedMember.getId()).isEqualTo(findMember.getId());
         assertThat(savedMember).isSameAs(findMember);
     }
-    
-    @Test
-    @DisplayName("JPA 리파지토리 테스트")
-    void testJpaDataRepository() throws Exception {
-        //given
-        Member member = new Member("memberB");
-        //when
-        Member savedMember = memberRepository.save(member);
-        Member findMember = memberRepository.findById(savedMember.getId()).get();
-        //then
-        assertThat(savedMember).isSameAs(findMember);
-
-    }
-
 }
