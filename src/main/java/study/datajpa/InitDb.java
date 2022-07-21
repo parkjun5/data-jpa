@@ -5,16 +5,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
 @Component
 @RequiredArgsConstructor
-public class initDb {
+public class InitDb {
 
     private final InitService initService;
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         initService.dbInit1();
     }
