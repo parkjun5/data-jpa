@@ -50,4 +50,8 @@ public class MemberJpaRepository {
                 .getResultList();
     }
 
+    public int bulkAgePlus() {
+        return em.createQuery("update Member m set m.age = m.age + 1").executeUpdate();
+    }
+
 }

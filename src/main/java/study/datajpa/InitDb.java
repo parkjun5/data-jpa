@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
 @Component
@@ -13,7 +14,7 @@ public class InitDb {
 
     private final InitService initService;
 
-//    @PostConstruct
+    @PostConstruct
     public void init() {
         initService.dbInit1();
     }
@@ -25,8 +26,10 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            Member member = new Member("memberTest");
-            em.persist(member);
+            for (int i = 0; i < 100; i++) {
+                Member member = Member.createMember("TestDATA_"+ i, 10 + i, null);
+                em.persist(member);
+            }
         }
     }
 }

@@ -5,10 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberJpaRepositoryTest {
 
     @Autowired MemberJpaRepository memberJpaRepository;
-
+    @PersistenceContext
+    EntityManager em;
     @Autowired TeamRepository teamRepository;
 
 
@@ -58,6 +62,33 @@ class MemberJpaRepositoryTest {
 
     }
 
+    @Test
+    void bulkUpdate() throws Exception {
+        //given
+        기본맴버_세팅();
+
+        //when
+        int queryResult = memberJpaRepository.bulkAgePlus();
+        em.flush();
+        em.clear();
+        List<Member> members = memberJpaRepository.findAll();
+        //then
+        assertThat(queryResult).isEqualTo(10);
+
+
+        System.out.println("members.get(0).getId() = " + members.get(0).getId());
+        System.out.println("members = " + members.get(0).getAge());
+        assertThat(members.get(0).getAge()).isEqualTo(16);
+    }
+
+    private void 기본맴버_세팅() {
+        Team teamA = getTeam("TeamA");
+        for (int i = 1; i < 11; i++) {
+            createMember("member" + i, 15, teamA);
+        }
+    }
+
+
     private Member createMember(String username, int age, Team team) {
         Member member = Member.createMember(username, age, team);
         return memberJpaRepository.save(member);
@@ -67,5 +98,4 @@ class MemberJpaRepositoryTest {
         Team team = new Team(teamName);
         return teamRepository.save(team);
     }
-
 }
