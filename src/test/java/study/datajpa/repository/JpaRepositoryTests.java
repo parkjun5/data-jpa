@@ -4,14 +4,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -49,8 +47,7 @@ class JpaRepositoryTests {
         Member member1 = createMember("member1", 15, teamA);
         Member member2 = createMember("member2", 25, teamA);
         Member member3 = createMember("member3", 35, teamB);
-        Member member4 = createMember("member4", 45, teamB);
-
+        createMember("member4", 45, teamB);
         //when
         List<Member> members = memberRepository.findAll();
 
@@ -58,7 +55,6 @@ class JpaRepositoryTests {
             assertThat(member.getId()).isNotNull();
         }
         Long memberSize = memberRepository.count();
-
         //then
         assertThat(memberSize).isEqualTo(4);
 

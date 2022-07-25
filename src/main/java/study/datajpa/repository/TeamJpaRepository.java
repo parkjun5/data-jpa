@@ -39,5 +39,4 @@ public class TeamJpaRepository {
     public Team find(Long id) {
         return em.find(Team.class, id);
     }
-
 }

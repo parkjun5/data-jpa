@@ -12,15 +12,11 @@ public class P6spySqlFormatConfig implements MessageFormattingStrategy {
 
     @Override
     public String formatMessage(final int connectionId, final String now, final long elapsed, final String category, final String prepared, String sql, final String url) {
-        String result;
         if (category.equalsIgnoreCase(Category.STATEMENT.getName())) {
-            String formattedSql = formatSql(sql);
-            result = String.format(STATEMENT_SQL_MESSAGE_FORMAT, now, url, connectionId, category, elapsed, formattedSql);
+            return String.format(STATEMENT_SQL_MESSAGE_FORMAT, now, url, connectionId, category, elapsed, formatSql(sql));
         } else {
-            result = String.format(EITHER_CATEGORY_MESSAGE_FORMAT, now, url, connectionId, category, prepared, sql, elapsed);
+            return String.format(EITHER_CATEGORY_MESSAGE_FORMAT, now, url, connectionId, category, prepared, sql, elapsed);
         }
-
-        return result;
     }
 
     private String formatSql(String sql) {
@@ -38,7 +34,6 @@ public class P6spySqlFormatConfig implements MessageFormattingStrategy {
                         .format(sql);
             }
         }
-
         return result;
     }
 }

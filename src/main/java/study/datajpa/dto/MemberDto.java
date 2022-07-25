@@ -1,25 +1,24 @@
 package study.datajpa.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import study.datajpa.entity.Member;
 
-@Getter
-@Setter
+@Data
 public class MemberDto {
 
-    private Long memberId;
-    private String name;
+    private Long id;
+    private String username;
     private String teamName;
 
-    public MemberDto(Long memberId, String name, String teamName) {
-        this.memberId = memberId;
-        this.name = name;
+    public MemberDto(Long id, String username, String teamName) {
+        this.id = id;
+        this.username = username;
         this.teamName = teamName;
     }
 
     public MemberDto(Member member) {
-        this.memberId = member.getId();
-        this.name = member.getUsername();
+        id = member.getId();
+        username = getUsername();
+        teamName = null;
     }
 }

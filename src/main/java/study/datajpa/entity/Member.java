@@ -16,12 +16,12 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
     private String username;
-
     private int age;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "team_id")
     @ToString.Exclude
     private Team team;
+
     public Member(String username) {
         this.username = username;
     }

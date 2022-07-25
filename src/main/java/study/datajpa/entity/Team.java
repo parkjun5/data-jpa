@@ -22,7 +22,6 @@ public class Team extends BaseEntity {
     @ToString.Exclude
     private List<Member> members = new ArrayList<>();
 
-
     public Team(String name) {
         this.name = name;
     }
