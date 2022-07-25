@@ -404,7 +404,7 @@ class MemberRepositoryTests {
         //then
         assertThat(m1.getAge()).isEqualTo(2);
         assertThat(byNativeProjection.getTotalElements()).isEqualTo(2L);
-        assertThat(byNativeProjection.getContent().get(0).getUsername()).isEqualTo("  ");
+        assertThat(byNativeProjection.getContent().get(0).getUsername()).isEqualTo("m1");
 
     }
 
